@@ -23,7 +23,7 @@ export function Footer() {
             <h5 className="eyebrow mb-3.5">Liên hệ</h5>
             <a
               href={`tel:${CONTACT.hotlinePrimary.tel}`}
-              className="mb-1.5 block text-sm text-ink-soft transition-colors hover:text-neon-green"
+              className="mb-1.5 block text-sm text-ink-soft transition-colors hover:text-neon-gold"
             >
               Hotline: {CONTACT.hotlinePrimary.display} – {CONTACT.hotlineSecondary.display}
             </a>

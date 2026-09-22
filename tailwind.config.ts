@@ -20,10 +20,10 @@ const config: Config = {
         glass: "var(--glass)",
         "glass-strong": "var(--glass-strong)",
         "glass-border": "var(--glass-border)",
-        "neon-green": "var(--neon-green)",
-        "neon-green-soft": "var(--neon-green-soft)",
         "neon-gold": "var(--neon-gold)",
         "neon-gold-soft": "var(--neon-gold-soft)",
+        "neon-bronze": "var(--neon-bronze)",
+        "neon-bronze-soft": "var(--neon-bronze-soft)",
       },
       fontFamily: {
         display: ["var(--font-tinos)", "Times New Roman", "Times", "Georgia", "serif"],
@@ -35,15 +35,13 @@ const config: Config = {
         sm: "12px",
       },
       boxShadow: {
-        "glow-green":
-          "0 0 1px rgba(51,230,160,.9), 0 0 46px -6px rgba(51,230,160,.55), 0 0 110px -24px rgba(51,230,160,.4)",
         "glow-gold":
           "0 0 1px rgba(233,183,92,.9), 0 0 46px -6px rgba(233,183,92,.55), 0 0 110px -24px rgba(233,183,92,.4)",
         "glow-gold-strong":
           "0 0 1px rgba(233,183,92,1), 0 0 70px -6px rgba(233,183,92,.75)",
       },
       backgroundImage: {
-        "grad-accent": "linear-gradient(120deg, var(--neon-green), var(--neon-gold))",
+        "grad-accent": "linear-gradient(120deg, var(--neon-bronze), var(--neon-gold))",
       },
       keyframes: {
         drift: {

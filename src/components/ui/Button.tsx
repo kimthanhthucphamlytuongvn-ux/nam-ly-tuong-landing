@@ -22,7 +22,7 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     "bg-gradient-to-r from-neon-gold to-[#F4D48A] text-[#1B1404] font-bold shadow-glow-gold hover:shadow-glow-gold-strong",
   outline:
-    "glass text-ink border border-glass-border hover:border-neon-green hover:shadow-glow-green",
+    "glass text-ink border border-glass-border hover:border-neon-gold hover:shadow-glow-gold",
 };
 
 /**

@@ -15,7 +15,7 @@ export function StorySection() {
             {timeline.map((item) => (
               <li key={item.year} className="relative py-0 pb-8 pl-7 last:pb-0">
                 <span className="absolute left-[-6px] top-1 h-[11px] w-[11px] rounded-full bg-neon-gold shadow-glow-gold" />
-                <span className="font-display text-[1.05rem] italic text-neon-green">
+                <span className="font-display text-[1.05rem] italic text-neon-bronze">
                   {item.year}
                 </span>
                 <p className="mt-1.5 text-[0.95rem] text-ink-soft">{item.text}</p>

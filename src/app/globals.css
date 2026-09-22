@@ -10,21 +10,26 @@
 ========================================================== */
 @layer base {
   :root {
-    --bg: #06100b;
-    --bg-1: #0a1610;
-    --bg-2: #0e1d15;
+    /* Warm near-black neutrals (biased toward the gold accent, not green)
+       — dried-shiitake / espresso undertone instead of a forest-black. */
+    --bg: #120d08;
+    --bg-1: #1a130b;
+    --bg-2: #22190d;
     --ink: #f4efe1;
-    --ink-soft: #b7c4b6;
-    --ink-dim: #7c8b7b;
+    --ink-soft: #c9bfae;
+    --ink-dim: #8c8172;
 
     --glass: rgba(244, 239, 225, 0.045);
     --glass-strong: rgba(244, 239, 225, 0.09);
     --glass-border: rgba(244, 239, 225, 0.12);
 
-    --neon-green: #33e6a0;
-    --neon-green-soft: rgba(51, 230, 160, 0.4);
+    /* Single dominant accent: gold/amber, the colour of dried shiitake
+       (nấm hương khô). --neon-bronze is the same family one shade deeper,
+       used only for secondary/tonal emphasis — never a second hue. */
     --neon-gold: #e9b75c;
     --neon-gold-soft: rgba(233, 183, 92, 0.4);
+    --neon-bronze: #c98a3b;
+    --neon-bronze-soft: rgba(201, 138, 59, 0.35);
 
     color-scheme: dark;
   }
@@ -47,6 +52,21 @@
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.001ms !important;
+    }
+
+    /* Framer Motion sets opacity/transform as inline styles via its own
+       JS/WAAPI runtime, so the rule above (which only touches CSS
+       transitions/animations) can't reach it. `.motion-reveal` marks the
+       handful of components that animate in from `opacity:0` on mount
+       (<Reveal>, <ProductCard>) — forcing their resting state here is a
+       plain CSS override with `!important`, so it can't disagree between
+       server and client the way a JS `useReducedMotion()` branch did
+       (that combination previously produced a real React hydration
+       mismatch, since the hook only resolves the true value on the
+       client — see Reveal.tsx). */
+    .motion-reveal {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 
@@ -88,8 +108,8 @@
     padding: 1px;
     background: linear-gradient(
       135deg,
-      var(--neon-green-soft),
-      var(--neon-gold-soft) 55%,
+      var(--neon-gold-soft),
+      var(--neon-bronze-soft) 55%,
       transparent 85%
     );
     -webkit-mask:

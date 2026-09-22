@@ -70,7 +70,7 @@ export function TrustSection() {
                     "font-display italic [font-variant-numeric:tabular-nums]",
                     row.isTotal
                       ? "text-[2.6rem] text-neon-gold [text-shadow:0_0_1px_rgba(233,183,92,1),0_0_46px_-6px_rgba(233,183,92,.55),0_0_110px_-24px_rgba(233,183,92,.4)]"
-                      : "text-[1.8rem] text-neon-green"
+                      : "text-[1.8rem] text-neon-bronze"
                   )}
                 >
                   {row.n}

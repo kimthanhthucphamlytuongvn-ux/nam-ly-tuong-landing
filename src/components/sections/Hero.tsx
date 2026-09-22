@@ -41,7 +41,7 @@ export function Hero() {
             <svg viewBox="0 0 200 200" className="h-full w-full">
               <defs>
                 <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stopColor="var(--neon-green)" />
+                  <stop offset="0" stopColor="var(--neon-bronze)" />
                   <stop offset="1" stopColor="var(--neon-gold)" />
                 </linearGradient>
               </defs>

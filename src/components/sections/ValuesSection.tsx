@@ -17,7 +17,7 @@ export function ValuesSection() {
           {values.map((value, i) => (
             <Reveal key={value.title} delay={i * 0.06}>
               <GlassCard className="h-full p-[26px]">
-                <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-grad-accent font-display text-[1.3rem] font-bold text-[#12200F] shadow-glow-green">
+                <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-grad-accent font-display text-[1.3rem] font-bold text-[#1B1404] shadow-glow-gold">
                   {value.letter}
                 </div>
                 <h3 className="mt-4 text-[1.08rem]">{value.title}</h3>

@@ -17,7 +17,7 @@ export function Chip({ label, active, onClick }: ChipProps) {
       className={cn(
         "glass rounded-full border px-5 py-2 font-body text-sm transition-all",
         active
-          ? "border-neon-green text-ink shadow-glow-green"
+          ? "border-neon-gold text-ink shadow-glow-gold"
           : "border-glass-border text-ink-soft hover:text-ink"
       )}
     >

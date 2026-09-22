@@ -26,7 +26,7 @@ export function UspSection() {
                 <ul className="mt-4 flex flex-col gap-2">
                   {item.points.map((point) => (
                     <li key={point} className="flex gap-2.5 text-[0.9rem] text-ink-soft">
-                      <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-neon-green" />
+                      <CheckIcon className="mt-0.5 h-4 w-4 flex-none text-neon-bronze" />
                       {point}
                     </li>
                   ))}
