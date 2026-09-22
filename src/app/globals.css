@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================
+   DESIGN TOKENS
+   Single source of truth for the Premium Dark Glassmorphism
+   system. tailwind.config.ts aliases these as bg-*, text-*,
+   shadow-glow-* utilities — edit colors here, not in components.
+========================================================== */
+@layer base {
+  :root {
+    --bg: #06100b;
+    --bg-1: #0a1610;
+    --bg-2: #0e1d15;
+    --ink: #f4efe1;
+    --ink-soft: #b7c4b6;
+    --ink-dim: #7c8b7b;
+
+    --glass: rgba(244, 239, 225, 0.045);
+    --glass-strong: rgba(244, 239, 225, 0.09);
+    --glass-border: rgba(244, 239, 225, 0.12);
+
+    --neon-green: #33e6a0;
+    --neon-green-soft: rgba(51, 230, 160, 0.4);
+    --neon-gold: #e9b75c;
+    --neon-gold-soft: rgba(233, 183, 92, 0.4);
+
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: clip;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+/* ==========================================================
+   Reusable component classes. Kept inside @layer components so
+   that any Tailwind utility (e.g. a border-color override on a
+   .glass element) always wins in the cascade regardless of the
+   source order these rules happen to be written in.
+========================================================== */
+@layer components {
+  /* Glass surface + neon gradient ring, reused via <GlassCard>.
+     The ::before uses the mask-composite "border gradient" trick:
+     a 1px padded gradient layer, masked to only show the ring. */
+  .glass {
+    position: relative;
+    background: linear-gradient(160deg, var(--glass-strong), var(--glass));
+    border: 1px solid var(--glass-border);
+    border-radius: 26px;
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+  }
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--neon-green-soft),
+      var(--neon-gold-soft) 55%,
+      transparent 85%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: theme("fontFamily.body");
+    font-style: italic;
+    font-size: 0.86rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--neon-gold);
+  }
+
+  /* Opacity is set per-instance via a Tailwind utility (not here), so
+     it can vary per blob without fighting this class on specificity. */
+  .ambient-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(120px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+}
