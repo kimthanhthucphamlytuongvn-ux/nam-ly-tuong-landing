@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Tinos } from "next/font/google";
 import { AmbientGlow } from "@/components/ui/AmbientGlow";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 import "./globals.css";
 
 /**
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-body text-base leading-relaxed antialiased">
         <AmbientGlow />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );
