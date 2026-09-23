@@ -1,19 +1,14 @@
 # Nấm Lý Tưởng — Next.js Landing Page
 
-Chuyển đổi 1:1 từ bản HTML/CSS/JS thuần (Premium Dark Glassmorphism + Neon
-Ambient Glow) sang Next.js 14 (App Router) + TypeScript + TailwindCSS +
-Framer Motion.
-
-> **Lưu ý quan trọng:** source code này được viết trong môi trường **không
-> có Node.js/npm cài sẵn**, nên chưa thể chạy `npm install` / `next build`
-> để tự kiểm chứng. Cấu trúc và cú pháp đã được rà soát kỹ thủ công, nhưng
-> bạn cần tự `npm install && npm run dev` ở máy có Node.js để xác nhận lần
-> cuối trước khi deploy production.
+Premium Dark Glassmorphism + Neon Ambient Glow, dựng bằng Next.js 16 (App
+Router) + TypeScript + TailwindCSS + Framer Motion, có sẵn AI Chatbot tư
+vấn (streaming, DeepSeek API).
 
 ## Cài đặt
 
 ```bash
 npm install
+cp .env.example .env   # rồi điền DEEPSEEK_API_KEY thật vào .env
 npm run dev
 ```
 
@@ -41,13 +36,19 @@ src/
     sections/        # 1 file = 1 khối nội dung của landing page
     ui/               # thành phần dùng lại nhiều nơi: Button, GlassCard, Chip,
                       #   ProductCard, StatTile, Reveal (fade-in khi cuộn), AmbientGlow
-    icons/            # icon SVG dạng component (Mushroom, Leaf, Check, Badge, Store)
+    icons/            # icon SVG dạng component (Mushroom, Leaf, Check, Badge, Store, Chat...)
+    chat/             # AI Chatbot: ChatWidget (nút nổi), ChatPanel, ChatMessageBubble,
+                      #   ChatInputBar, TypingDots, useChat (logic gọi API + streaming)
+    api/chat/route.ts # API route: nhận tin nhắn, gọi DeepSeek, stream phản hồi về client
   lib/
     data.ts           # TOÀN BỘ nội dung/copy của trang (sản phẩm, timeline, USP,
                       #   OCOP, danh sách siêu thị...) — sửa nội dung ở đây, không
                       #   sửa trong component
+    chatbot.ts         # đọc chatbot_data.txt, dựng system prompt cho chatbot
     types.ts          # type cho dữ liệu ở trên
     cn.ts             # helper nối className (thay clsx tối giản)
+chatbot_data.txt        # dữ liệu chatbot được phép dùng để trả lời (sửa file này,
+                        #   không cần sửa code, để cập nhật thông tin chatbot biết)
 ```
 
 ## Vì sao tách như vậy (để dễ bảo trì / mở rộng)
@@ -77,6 +78,29 @@ src/
 - `Header` — theo dõi `scrollY` bằng `useScroll`/`useMotionValueEvent` để
   làm đậm nền kính khi cuộn xuống; menu mobile trượt mở bằng
   `AnimatePresence` + chiều cao animate.
+
+## AI Chatbot (streaming, DeepSeek)
+
+- **Kiến trúc**: `ChatWidget` (nút nổi góc dưới phải, toàn site, gắn trong
+  `app/layout.tsx`) → mở `ChatPanel` → gõ câu hỏi → `useChat` gọi
+  `POST /api/chat` → route server dùng `openai` SDK trỏ `baseURL` sang
+  `https://api.deepseek.com`, model `deepseek-flash`, `stream: true` → text
+  chảy về client theo từng đoạn nhỏ (plain text, không phải JSON/SSE) →
+  hiển thị ngay theo thời gian thực kèu con trỏ nhấp nháy.
+- **Dữ liệu chatbot được phép dùng**: `chatbot_data.txt` (gốc project, cạnh
+  `package.json`). Sửa file này để cập nhật thông tin — không cần sửa code.
+  System prompt (`lib/chatbot.ts`) buộc bot chỉ trả lời trong phạm vi file
+  này; hỏi gì ngoài phạm vi, bot mời nhắn Zalo thay vì bịa thông tin.
+- **Biến môi trường**: `DEEPSEEK_API_KEY` — đọc ở `.env` (dev) hoặc biến
+  môi trường của hosting (production). **Không commit `.env`** — đã có
+  trong `.gitignore`; dùng `.env.example` làm mẫu.
+- **Bắt buộc khi deploy lên Vercel**: vào **Project → Settings →
+  Environment Variables**, thêm `DEEPSEEK_API_KEY` với giá trị thật, áp
+  dụng cho **Production** (và Preview nếu cần) — Vercel không tự đọc
+  `.env` từ Git vì file đó không được đẩy lên. Thiếu bước này, chatbot sẽ
+  báo "chưa được cấu hình" trên bản deploy dù chạy tốt ở local.
+- **An toàn**: khoá API chỉ được dùng ở server (`app/api/chat/route.ts`),
+  không bao giờ lộ ra bundle phía client.
 
 ## Việc còn cần bạn xác nhận trước khi lên production
 
